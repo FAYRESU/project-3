@@ -1,36 +1,33 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
-
-	function __construct()
+class Manage_product extends CI_Controller
 {
-	parrent::__construct();
-	//  $this->load->view('Customer_model','cm');
-}
+	function __construct()
+	{
+		parent::__construct();
+	}
 
 	public function index()
 	{
 		echo "Database";
 	}
 
-    public function getProducts()
-    {
-	$data = $this->pm->getAllv2();
-	$this->load->view('show_product',$data);
+	public function getProducts()
+	{
+		$data['query'] = $this->pm->getAllv2();
+		$this->load->database('show_product', $data);
 	}
 
-    public function viewProducts($cd = 'C2499')
-    {
-	$data = $this->pm->getByCodev2($cd);
-	$this->load->view('show_product',$data);
+	public function viewProducts($cd = 'C2499')
+	{
+		$data['query'] = $this->pm->getByCodev2($cd);
+		$this->load->view('show_product', $data);
 	}
 
-     public function deleteProducts($cd)
-    {
-	$this->pm->removeByCode($cd);
-    $this->getProducts();
+	public function deleteProducts($cd)
+	{
+		$this->pm->removeByCode($cd);
+		$this->getProducts();
 	}
 }
-
-
